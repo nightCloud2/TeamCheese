@@ -1,0 +1,70 @@
+#community-list{
+    width: 1200px;
+    margin: 0 auto;
+    border: 1px solid #000;
+
+}
+
+#write-btn{
+    flex-shrink: 0;
+    position: relative;
+    left:650px;
+    width: auto !important;
+    display: inline-block;
+    height: 40px;
+    margin: 0 2px;
+    padding: 0 20px;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-font-smoothing: antialiased;
+    line-height: 40px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+
+.topic-container{
+    padding:2px 0 4px;
+    box-sizing:border-box;
+}
+.topic-slide{
+    position: relative;
+    width: calc(100% - 40px);
+    /*padding: 0 20px;*/
+    border-bottom: 8px solid #f2f2f3;
+    padding-right: 5px;
+    padding-left: 35px;
+    flex-shrink: 0;
+    position: relative;
+    /*추가*/
+    right:-100px;
+    width: auto !important;
+    display: inline-block;
+    height: 40px;
+    margin: 0 2px;
+    padding: 0 20px;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-font-smoothing: antialiased;
+    line-height: 40px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.article-table {
+    /*border-bottom: 1px solid #ddd;*/
+    width: 1000px;
+    margin: 0 auto;
+    /*border: 1px solid #000;*/
+}
+.article-section{
+    border: 1px solid #000;
+    margin: 0;
+}
