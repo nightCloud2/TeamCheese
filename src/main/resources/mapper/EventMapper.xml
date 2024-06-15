@@ -73,5 +73,10 @@
     <update id="autoIncreasereset">
         ALTER TABLE event auto_increment=1;
     </update>
+<!--    날짜 범위 검색-->
+    <select id="SearchWithDate" parameterType="Map" resultType="EventDto">
+        select * from event
+        where e_date between #{Start_date} and #{End_date};
+    </select>
 
 </mapper>

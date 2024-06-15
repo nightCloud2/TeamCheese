@@ -17,7 +17,8 @@ public class MailService {
     private final String senderEmail = "ghkdwjdgk23@gmail.com";
 
 //    @Autowired UserDaoImpl userDao;
-    @Autowired(required=false) JavaMailSender mailSender;
+    @Autowired
+    JavaMailSender mailSender;
 
     // 인증번호 생성 메서드 makeRandomMailKey()
     public String makeRandomMailKey() {

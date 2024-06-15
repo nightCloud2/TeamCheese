@@ -70,7 +70,7 @@
     <select id="emailExist" parameterType="String" resultType="boolean">
         SELECT EXISTS (
             SELECT 1
-            FROM users
+            FROM user
             WHERE email = #{email}
         )
     </select>

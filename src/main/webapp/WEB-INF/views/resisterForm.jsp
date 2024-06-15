@@ -275,14 +275,15 @@
     </style>
 
     <title>치즈메이트 - 회원가입</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
 
 
     <div>
         <input type="email" id="email" name="email" oninput="checkEmailFormat(this.value)"  placeholder="이메일을 입력해주세요." required>
-        <button id="sendEmailBtn" disabled>전송</button>
-        <div class="input-verification-code" id="verificationDiv" onclick="showVerifyEmailForm()">
+        <button id="sendEmailBtn">전송</button>
+
 
             <input type="text" id="verificationCode" name="mail_key" placeholder="인증번호를 입력해주세요." required>
             <button id="verifyCodeBtn">인증</button>
@@ -960,9 +961,9 @@
     $(document).ready(function() {
         $("#sendEmailBtn").click(function() {
             let email = $("#email").val();
-
+            alert("메일");
             $.ajax({
-                url: "/register/send",
+                url: "/send",
                 type: "POST",
                 data: { email: email },
                 success: function (response) {
@@ -981,7 +982,7 @@
             let verificationCode = $("input[name='mail_key']").val();
             console.log($("input[name='mail_key']").val());
             $.ajax({
-                url: "/register/verifyEmail",
+                url: "/verifyEmail",
                 type: "POST",
                 data: { verificationCode: verificationCode },
                 success: function(response) {
