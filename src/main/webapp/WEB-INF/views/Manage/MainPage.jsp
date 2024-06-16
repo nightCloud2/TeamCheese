@@ -13,6 +13,7 @@
     <title>관리자 페이지</title>
     <link rel="stylesheet" href="/css/ManageMain.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 <header class="header">
@@ -27,13 +28,13 @@
 <div class="row">
     <div class="column">
         <div class="card primary">
-            <h5>오늘의 가입자 수</h5>
+            <h4>오늘의 가입자 수</h4>
             <p id="today-signups">0</p>
         </div>
     </div>
     <div class="column">
         <div class="card danger">
-            <h5>오늘 탈퇴자 수</h5>
+            <h4>오늘 탈퇴자 수</h4>
             <p id="today-cancellations">0</p>
         </div>
     </div>
@@ -41,13 +42,13 @@
 <div class="row">
     <div class="column">
         <div class="card">
-            <h5>답변 필요 1대 1 문의 글 목록</h5>
+            <h4>답변 필요 1대 1 문의 글 목록</h4>
             <ul class="list-group" id="inquiry-list"></ul>
         </div>
     </div>
     <div class="column">
         <div class="card">
-            <h5>곧 종료 되는 이벤트</h5>
+            <h4>곧 종료 되는 이벤트</h4>
             <ul class="list-group" id="event-list"></ul>
         </div>
     </div>
@@ -55,13 +56,13 @@
 <div class="row">
     <div class="column">
         <div class="card">
-            <h5>카테고리 별 조회 수</h5>
-            <div id="category-chart"></div>
+            <h4>카테고리 별 조회 수</h4>
+            <div id="category-chart"><div class="tooltip" id="tooltip"></div></div>
         </div>
     </div>
 </div>
 </div>
-<div class="tooltip" id="tooltip"></div>
+
 <script src="/js/ManageMain.js"></script>
 </body>
 </html>

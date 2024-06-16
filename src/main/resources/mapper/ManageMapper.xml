@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.cheese.ManageMapper">
+    <select id="selectSoonEndEvent" resultType="EventDto">
+        select * from event
+        where ADDDATE(e_date,-1) = curdate();
+    </select>
+    <select id="countsalecategory" resultType="int">
+        select sum(view_cnt) from sale
+        group by LEFT(sal_i_cd, 3);
+    </select>
+</mapper>

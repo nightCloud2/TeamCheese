@@ -1,4 +1,29 @@
 // 예제 데이터
+$(document).ready(function() {
+    console.log("Document is ready");
+
+    $.ajax({
+        url: '/Manage/getEventList',
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(result) {
+            console.log("AJAX 요청 성공", result);
+            const eventList = document.getElementById('event-list');
+            result.forEach(event => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.innerText = `${event.evt_no} ${event.title} 종료일 : ${event.e_date}`;
+                eventList.appendChild(li);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX 요청 실패", status, error);
+            console.log("응답 내용:", xhr.responseText);
+        }
+    });
+});
 const signupsToday = 10;
 const cancellationsToday = 2;
 const categoryData = [
@@ -28,15 +53,13 @@ const categoryData = [
     { category: 'Category 24', views: 80 },
     { category: 'Category 25', views: 80}
 ];
+
 const pendingInquiries = [
     'Inquiry 1: Details...',
     'Inquiry 2: Details...',
     'Inquiry 3: Details...'
 ];
-const endingSoonEvents = [
-    'Event 1: Ends tomorrow',
-    'Event 2: Ends tomorrow'
-];
+
 
 // DOM 요소 업데이트
 document.getElementById('today-signups').innerText = signupsToday;
@@ -51,19 +74,14 @@ pendingInquiries.forEach(inquiry => {
 });
 
 const eventList = document.getElementById('event-list');
-endingSoonEvents.forEach(event => {
-    const li = document.createElement('li');
-    li.className = 'list-group-item';
-    li.innerText = event;
-    eventList.appendChild(li);
-});
+
 
 // D3.js를 이용한 바 차트 생성
 const svg = d3.select('#category-chart').append('svg')
     .attr('width', '100%')
     .attr('height', 400);
 
-const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+const margin = { top: 20, right: 20, bottom: 30, left: 20 };
 const width = document.getElementById('category-chart').clientWidth - margin.left - margin.right;
 const height = +svg.attr('height') - margin.top - margin.bottom;
 const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
