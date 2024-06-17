@@ -30,5 +30,6 @@
 		<typeAlias alias="QnaCategoryDto" type="team.cheese.domain.QnaCategoryDto"/>
 		<typeAlias alias="FaqDto" type="team.cheese.domain.FaqDto"/>
 		<typeAlias alias="QnaDto" type="team.cheese.domain.QnaDto"/>
+		<typeAlias alias="saleCategorysumdto" type="team.cheese.domain.Manage.saleCategorysumdto"/>
 	</typeAliases>
 </configuration>

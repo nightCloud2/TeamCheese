@@ -4,6 +4,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import team.cheese.dao.Manage.ManageDao;
+import team.cheese.domain.Manage.saleCategorysumdto;
 import team.cheese.domain.event.EventDto;
 
 import java.time.LocalDate;
@@ -30,6 +31,17 @@ public class ManageDaoTest extends AbstractTestNGSpringContextTests {
         for (EventDto dto : dtolist) {
             Assert.assertEquals(dto.getE_date(), tomorrow, "이벤트 날짜는 내일이어야 합니다.");
         }
+    }
+    @Test
+    public void selectCountsalecategory(){
+        List<saleCategorysumdto>dtolist = manageDao.countSaleCategory();
+        System.out.println(dtolist);
+        Assert.assertTrue(dtolist.get(0).getName().equals("여성의류"));
+    }
+    @Test
+    public  void Countregisterusertest(){
+        System.out.println(manageDao.counttodayregister());
+        Assert.assertTrue(manageDao.counttodayregister()!=-1);
     }
 
     private Date convertToDateViaInstant(LocalDate dateToConvert) {

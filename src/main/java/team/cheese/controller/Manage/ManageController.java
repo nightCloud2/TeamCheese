@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import team.cheese.domain.Manage.saleCategorysumdto;
 import team.cheese.domain.event.EventDto;
 import team.cheese.service.Manage.ManageService;
 
@@ -28,5 +29,14 @@ public class ManageController {
     public List<EventDto> getEventList(){
         return manageService.getSoonEndList();
     }
-
+    @GetMapping("getCharImfo")
+    @ResponseBody
+    public List<saleCategorysumdto> getchartImfo(){
+        return manageService.getCartImpo();
+    }
+    @GetMapping("todayRegisterUser")
+    @ResponseBody
+    public int gettodayRegisterUser(){
+        return manageService.gettodayRegisterUsercnt();
+    }
 }
