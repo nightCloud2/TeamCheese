@@ -3,6 +3,7 @@ package team.cheese.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import team.cheese.dao.MyPage.UserInfoDao;
 import team.cheese.dao.UserDao;
@@ -88,7 +89,7 @@ public class UserService {
     }
 
     // *** 회원가입 기능 ***
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public int insertNewUser(UserDto dto, AddrCdDto addrCdDto) throws NoSuchAlgorithmException {
         //유저
         dto.setPw(hashPassword(dto.getPw()));
@@ -101,10 +102,10 @@ public class UserService {
 
         // 소개글 작성 (insert)
         UserInfoDTO userInfoDTO = new UserInfoDTO(dto.getId(),dto.getNick(),"");
-        userInfoDTO.setContents("test");
+        userInfoDTO.setContents("");
+        userInfoDTO.setImg_full_rt("Noneprofile.png");
         try {
             int rowCnt = userInfoDao.insert(userInfoDTO);
-            System.out.println("rowCnt"+rowCnt);
             if(rowCnt!=1)
                 throw new RuntimeException("소개글 작성 중 예외가 발생했습니다");
         } catch (Exception e) {
@@ -113,20 +114,6 @@ public class UserService {
 
         return 1;
     }
-
-
-
-
-
-
-//    메일 인증 이메일 체크
-    public boolean emailCheck(String email){
-        return userDao.emailExist(email);
-    }
-
-
-
-
 
 
 

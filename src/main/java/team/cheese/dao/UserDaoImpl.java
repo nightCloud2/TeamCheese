@@ -54,9 +54,4 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int updateUser_s_cd(Map map) { return sqlSession.update(namespace + "updateUser_s_cd", map); }
-
-    @Override
-    public boolean emailExist(String email) {
-        return sqlSession.selectOne(namespace + "emailExist", email);
-    }
 }

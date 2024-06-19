@@ -32,8 +32,8 @@
 
 <!--    새로운 유저를 추가한다-->
     <insert id="insertNewUser" parameterType="UserDto">
-        INSERT INTO user (id, pw, name, nick, birth, gender, phone_num, safe_num, foreigner, email, s_cd, addr_det, first_date, first_id, last_date, last_id)
-        VALUES (#{id}, #{pw}, #{name}, #{nick}, #{birth}, #{gender}, #{phone_num}, #{safe_num}, #{foreigner}, #{email}, #{s_cd}, #{addr_det}, #{first_date}, #{first_id}, #{last_date}, #{last_id})
+        INSERT INTO user (id, pw, name, nick, birth, gender, phone_num, safe_num, foreigner, email, s_cd, addr_det, first_id, last_id)
+        VALUES (#{id}, #{pw}, #{name}, #{nick}, #{birth}, #{gender}, #{phone_num}, #{safe_num}, #{foreigner}, #{email}, #{s_cd}, #{addr_det}, #{id}, #{id})
     </insert>
     
 <!--    모든 유저의 아이디만 읽어온다-->
@@ -63,15 +63,4 @@
         SET s_cd = #{s_cd}
         WHERE id = #{id}
     </update>
-
-
-
-<!--    이메일 있는지 체크용-->
-    <select id="emailExist" parameterType="String" resultType="boolean">
-        SELECT EXISTS (
-            SELECT 1
-            FROM user
-            WHERE email = #{email}
-        )
-    </select>
 </mapper>

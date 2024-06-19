@@ -1,19 +1,30 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../fixed/header.jsp"%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="/css/saleBoard.css">
+<c:set var="userId" value="${sessionScope.userId != null ? sessionScope.userId : ''}" />
 <div class="maincontent saleboardarea">
+    <div class="jjim-area"></div>
     <div class="saleboard-top-box">
-
-
-        <div id="sale-slider-div" class="sale-img-box">
-            <c:forEach items="${imglist}" var="img">
-                <c:if test="${img.imgtype eq 'w'}">
-                <div class="sale-img">
-                    <img src="/img/display?fileName=${img.img_full_rt}" class="saleboardimg">
-                </div>
-                </c:if>
-            </c:forEach>
-        </div>
+            <div id="sale-slider-div" class="sale-img-box">
+                <c:forEach items="${imglist}" var="img">
+                    <c:if test="${img.imgtype eq 'w'}">
+                        <div class="sale-img">
+                            <c:if test="${Sale.sal_s_cd eq 'R'}">
+                                <div class='saleStatus-box'>
+                                    <span class='saleStatusText'>예약중</span>
+                                </div>
+                            </c:if>
+                            <c:if test="${Sale.sal_s_cd eq 'C'}">
+                                <div class='saleStatus-box'>
+                                    <span class='saleStatusText'>판매완료</span>
+                                </div>
+                            </c:if>
+                            <img src="/img/display?fileName=${img.img_full_rt}" class="saleboardimg">
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
 
         <div class="saleinfobox">
             <div class="categorybox">
@@ -44,12 +55,15 @@
                 </c:if>
             </div>
 
-            
+
             <div class="titleinfo-box">
-                <c:if test="${Sale.tx_s_cd == 'F'}">
-                    <span class="share-title"><c:when test="${Sale.tx_s_cd == 'F'}">나눔</c:when></span>
-                </c:if>
-                <p class="saletitle">${Sale.title}</p>
+                <div class="title-info">
+                    <c:if test="${Sale.tx_s_cd == 'F'}">
+                        <span class="share-title">[나눔]</span>
+                    </c:if>
+                    <p class="saletitle">${Sale.title}</p>
+                </div>
+
                 <p class="saleprice">${Sale.price}원</p>
             </div>
 
@@ -58,7 +72,7 @@
                 <p>·</p>
                 <p>조회 : ${Sale.view_cnt}</p>
                 <p>·</p>
-                <p>찜 : ${Sale.like_cnt}</p>
+                찜 : <p id="jjimCnt">${Sale.like_cnt}</p>
             </div>
 
             <div id="tradeinfo-box">
@@ -99,14 +113,14 @@
                 <div class="tr-li">
                     <p class="tr-title tr-title2">희망주소명 : </p>
                     <p class="tr-subtitle tr-subtitle2">
-                    <c:choose>
-                        <c:when test="${not empty Sale.pickup_addr_name}">
-                            ${Sale.pickup_addr_name}
-                        </c:when>
-                        <c:otherwise>
-                            -
-                        </c:otherwise>
-                    </c:choose>
+                        <c:choose>
+                            <c:when test="${not empty Sale.pickup_addr_name}">
+                                ${Sale.pickup_addr_name}
+                            </c:when>
+                            <c:otherwise>
+                                -
+                            </c:otherwise>
+                        </c:choose>
                     </p>
                 </div>
 
@@ -158,121 +172,97 @@
                     <c:when test="${Sale.seller_id eq sessionScope.userId}">
                         <button type="button" id="saleboard-myshop">내 상점 관리</button>
                     </c:when>
+                    <c:when test="${Sale.sal_s_cd eq 'C'}">
+                        <p class="salecomple-msg">이미 거래 완료된 상품입니다.</p>
+                    </c:when>
                     <c:otherwise>
-                        <button type="button" id="saleboard-jjimbtn"></button>
+                        <div class="jjim-btn">
+                        <button type="button" id="saleboard-jjimbtn">
+                        <p class="like_cnt" id="likeCount">${Sale.like_cnt}</p>
+                        </button>
+                        </div>
                         <form id="form">
-                        <button type="button" id="saleboard-charbtn" class="btn-salestyle">채팅하기</button>
+                            <button type="button" id="saleboard-charbtn" class="btn-salestyle">채팅하기</button>
                         </form>
                         <button type="button" id="payment-btn" class="btn-salestyle">안전결제</button>
                     </c:otherwise>
                 </c:choose>
 
-<%--                <c:choose>--%>
-<%--                    <c:when test="${Sale.bid_cd == 'P'}">--%>
-<%--                        <button type="button" id="pricehaggle" class="btn-salestyle">가격제시</button>--%>
-<%--                    </c:when>--%>
-<%--                    <c:when test="${Sale.bid_cd == 'T'}">--%>
-<%--                        <button type="button" id="sharerequest" class="btn-salestyle">나눔신청</button>--%>
-<%--                    </c:when>--%>
-<%--                </c:choose>--%>
+                <%--                <c:choose>--%>
+                <%--                    <c:when test="${Sale.bid_cd == 'P'}">--%>
+                <%--                        <button type="button" id="pricehaggle" class="btn-salestyle">가격제시</button>--%>
+                <%--                    </c:when>--%>
+                <%--                    <c:when test="${Sale.bid_cd == 'T'}">--%>
+                <%--                        <button type="button" id="sharerequest" class="btn-salestyle">나눔신청</button>--%>
+                <%--                    </c:when>--%>
+                <%--                </c:choose>--%>
 
             </div>
         </div>
     </div>
-        <div class="Productsinfobox">
-            <div class="Productinfo">
-                <div class="producttitle">
-                    <p>상품 정보</p>
-                </div>
-                <div class="productcontent">
-                    <p class="productcontent-title">${Sale.contents}</p>
-                </div>
+    <div class="Productsinfobox">
+        <div class="Productinfo">
+            <div class="producttitle">
+                <p>상품 정보</p>
+            </div>
+            <div class="productcontent">
+                <p class="productcontent-content">${Sale.contents}</p>
+            </div>
 
-                <div class="htrade-box">
-                    <div class="tr-li2">
-                        <p class="tr-title">희망지역</p>
-                        <p class="tr-subtitle">${Sale.pickup_addr_name}</p>
-                    </div>
-
-                    <div class="tr-li2">
-                        <p class="tr-title">희망거래장소</p>
-                        <p class="tr-subtitle">${Sale.detail_addr}</p>
-                    </div>
+            <div class="htrade-box">
+                <div class="tr-li2">
+                    <p class="tr-title">희망지역</p>
+                    <p class="tr-subtitle">${Sale.pickup_addr_name}</p>
                 </div>
 
-                <div id="tagDiv">
-                    <c:forEach var="Tag" items="${tagList}">
-                        <span class="tag-name" value="${Tag.no}">#${Tag.contents}</span>
-                    </c:forEach>
+                <div class="tr-li2">
+                    <p class="tr-title">희망거래장소</p>
+                    <p class="tr-subtitle">${Sale.detail_addr}</p>
                 </div>
             </div>
-            <div class="sallerinfo">
-                <div class="producttitle">
-                    <p>가게 정보</p>
-                </div>
-                <div class="userinfo-box">
-                    <div class="userinfo">
-                        <p class="seller_nick"><a href="/myPage/main?ur_id=${Sale.seller_id}">${Sale.seller_nick}</a></p>
-                        <div class="userprofile-box">
-                            <img src="/img/display?fileName=${user.img_full_rt}" alt="${Sale.seller_nick}" id="userprofile">
-                        </div>
-                    </div>
 
-                    <div id="userinfo-score-box">
-                        <div class="sb-p-state">
-                            <p class="tr-title">판매자 후기</p>
-                            <p class="tr-subtitle">${user.rv_cmt_cnt}</p>
-                        </div>
-                        <div class="sb-p-state">
-                            <p class="tr-title">판매자 평점</p>
-                            <p class="tr-subtitle">${user.star_avg}</p>
-                        </div>
-                    </div>
-
-                </div>
+            <div id="tagDiv">
+                <c:forEach var="Tag" items="${tagList}">
+                    <span class="tag-name" value="${Tag.no}">#${Tag.contents}</span>
+                </c:forEach>
             </div>
         </div>
+        <div class="sallerinfo">
+            <div class="producttitle">
+                <p>가게 정보</p>
+            </div>
+            <div class="userinfo-box">
+                <div class="userinfo">
+                    <p class="seller_nick"><a href="/myPage/main?ur_id=${Sale.seller_id}">${Sale.seller_nick}</a></p>
+                    <div class="userprofile-box">
+                        <img src="/img/display?fileName=${user.img_full_rt}" alt="${Sale.seller_nick}" id="userprofile">
+                    </div>
+                </div>
 
+                <div id="userinfo-score-box">
+                    <div class="sb-p-state">
+                        <p class="tr-title">판매자 후기</p>
+                        <p class="tr-subtitle">${user.rv_cmt_cnt}</p>
+                    </div>
+                    <div class="sb-p-state">
+                        <p class="tr-title">판매자 평점</p>
+                        <p class="tr-subtitle">${user.star_avg}</p>
+                    </div>
+                </div>
 
-<%--    <form id="form" action="" method="post">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${sessionScope.userId == Sale.seller_id}">--%>
-<%--                <select id="sal_s_cd">--%>
-<%--                    <option value="S" ${Sale.sal_s_cd == 'S' ? 'selected' : ''}>판매중</option>--%>
-<%--                    <option value="R" ${Sale.sal_s_cd == 'R' ? 'selected' : ''}>예약중</option>--%>
-<%--                    <option value="C" ${Sale.sal_s_cd == 'C' ? 'selected' : ''}>거래완료</option>--%>
-<%--                </select>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <p> 거래상태 :--%>
-<%--                    <c:choose>--%>
-<%--                        <c:when test="${Sale.sal_s_cd == 'S'}">판매중</c:when>--%>
-<%--                        <c:when test="${Sale.sal_s_cd == 'R'}">예약중</c:when>--%>
-<%--                        <c:when test="${Sale.sal_s_cd == 'C'}">거래완료</c:when>--%>
-<%--                    </c:choose>--%>
-<%--                </p>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </form>--%>
-<%--        <!-- <p>sale : ${Sale.no}</p>--%>
-<%--        <p>행정동 코드 : ${Sale.addr_cd}</p>--%>
-<%--        <p>판매 카테고리명 : ${Sale.sal_name}</p>--%>
-<%--        <p>희망행성구역코드 : ${Sale.pickup_addr_cd}</p>--%>
-<%--        <p>끌올횟수 : ${Sale.hoist_cnt}</p>--%>
-<%--        <p>가격제안/나눔신청 인원수 : ${Sale.bid_cnt}</p>--%>
-<%--        <c:if test="${(Sale.seller_id == sessionScope.userId) && Sale.hoist_cnt != 3}">--%>
-<%--            <button type="button" id="hoistingBtn">끌어올리기</button>--%>
-<%--        </c:if>--%>
+            </div>
+        </div>
+    </div>
 
-<%--        <c:if test="${Sale.seller_id == sessionScope.userId}">--%>
-<%--            <button type="button" id="removeBtn">삭제하기</button>--%>
-<%--            <button type="button" id="modifyBtn">수정하기</button>--%>
-<%--        </c:if>--%>
-<%--        <button type="button" id="returnBtn">목록</button>--%>
 </div>
-
+<script src="/js/jjim.js"></script>
 <script>
     $(document).ready(function () {
+        // 판매글 번호
+        let sal_no = "${Sale.no}";
+        // 세션 아이디
+        let ur_id = "${userId}";
+
         let time, price, oriprice, text;
 
         time = remaindTime(new Date("${Sale.h_date}"));
@@ -288,15 +278,103 @@
         $(".saleboard-uptime").text(time);
         $(".saletitle").text(text);
 
-        $("#saleboard-jjimbtn").on("click", function (){
-            if($("#saleboard-jjimbtn").hasClass("saleboard-jjimbtn")){
-                $("#saleboard-jjimbtn").removeClass("saleboard-jjimbtn");
-                $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like1'] + "')");
+        let checkhart = ${result.check_like};
 
-            } else {
-                $("#saleboard-jjimbtn").addClass("saleboard-jjimbtn");
-                $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like2'] + "')");
-            }
+        if(checkhart===1) {
+            $("#saleboard-jjimbtn").addClass("saleboard-jjimbtn"); // 찬 하트로
+            $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like2'] + "')");
+        }else {
+            $("#saleboard-jjimbtn").removeClass("saleboard-jjimbtn"); // 빈 하트로
+            $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like3'] + "')");
+        }
+
+        // $("#saleboard-jjimbtn").on("click", function (){     // 클릭했을떄
+        //     if($("#saleboard-jjimbtn").hasClass("saleboard-jjimbtn")){ // 색깔이 채워져있으면
+        //         $("#saleboard-jjimbtn").removeClass("saleboard-jjimbtn"); // 빈 하트로
+        //         $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like1'] + "')");
+        //
+        //     } else { // 안채워져있으면
+        //         $("#saleboard-jjimbtn").addClass("saleboard-jjimbtn"); // 찬 하트로
+        //         $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like2'] + "')");
+        //     }
+        // });
+
+        $(document).on("click", ".j-p-close", function(){
+            $(".jjim-area").children().remove();
+        });
+
+        $(document).on("click", ".j-p-dayclose", function(){
+            $(".jjim-area").children().remove();
+        });
+
+        $(document).on("click", ".j-p-jjim", function(){
+            $(".jjim-area").children().remove();
+            setCookie("JJIM", true, 1);
+            location.href='/myPage/main';
+        });
+
+
+        $("#saleboard-jjimbtn").on("click", function(){
+
+            $.ajax({
+                type:'GET',       // 요청 메서드
+                url : "/myPage/like?sal_no="+sal_no+ "&ur_id="+ur_id,
+                headers: {"content-type": "application/json"}, // 요청 헤더
+                dataType : 'json',
+                success:function(data){
+                    let row = data.row;
+                    let likeCnt = data.likeCnt;
+                    if(row==1){
+                        $("#saleboard-jjimbtn").addClass("saleboard-jjimbtn"); // 찬 하트로
+                        $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like2'] + "')");
+
+                        // alert("상품을 찜 하셨습니다.");
+                        /*
+                        let result = confirm('찜목록으로 이동하시겠습니까?');
+                        if (result) {
+                            //yes
+                            //찜 리스트 페이지 생성 후 -> 찜리스트 페이지 이동으로 변경
+                            setCookie("JJIM", true, 1);
+                            location.href='/myPage/main';
+                        }찜
+                        */
+                        let str = "";
+                        str= `<div class="jjim-popup">
+                                <div class="jjim-box">
+                                    <button type="button" class="j-p-close">
+                                        <span class="material-symbols-outlined">close</span>
+                                    </button>
+                                    <div class="jjimimg-box">
+                                        <img src="/img/display?fileName=img/jjim.png" alt=""/>
+                                    </div>
+                                    <p class="p-j-title">찜 상품 알림</p>
+                                    <p class="p-j-content">찜 상품 목록을 확인해보세요!</p>
+                                    <button type="button" class="j-p-jjim">보러가기</button>
+                                    <button type="button" class="j-p-dayclose">하루동안 보지 않기</button>
+                                </div>
+                            </div>`
+                        $(".jjim-area").html(str);
+                        // like_cnt 업데이트
+                        $("#likeCount").text(likeCnt);
+                        $("#jjimCnt").text(likeCnt);
+
+                    } else if(row == -1){
+                        alert("로그인이 필요한 서비스입니다.");
+                    }
+                    else {
+                        // alert("상품을 찜 취소하셨습니다. ");
+                        $("#saleboard-jjimbtn").removeClass("saleboard-jjimbtn"); // 빈 하트로
+                        $("#saleboard-jjimbtn").css("background-image", "url('/img/display?fileName=" + cssImage.getImgInfo()['Like3'] + "')");
+                        // like_cnt 업데이트
+                        $("#likeCount").text(likeCnt);
+                        $("#jjimCnt").text(likeCnt);
+                    }
+
+                },
+                error:function(error){
+                    console.log(error);
+                }
+            });
         });
 
         $(".userinfo").on("click", function (){
@@ -304,79 +382,10 @@
             window.location.href = "/myPage/main?ur_id=${Sale.seller_id}"
         });
 
-        // $(".prev").on("click", function() {
-        //     plusSlides(-1);
-        // });
-        //
-        // $(".next").on("click", function() {
-        //     plusSlides(1);
-        // });
-        //
-        // let slideIndex = 1;
-        // showSlides(slideIndex);
-        //
-        // function plusSlides(n) {
-        //     showSlides(slideIndex += n);
-        // }
-        //
-        // function currentSlide(n) {
-        //     showSlides(slideIndex = n);
-        // }
-        //
-        // function showSlides(n) {
-        //     let i;
-        //     let slides = document.getElementsByClassName("mySlides");
-        //     let dots = document.getElementsByClassName("dot");
-        //     if (n > slides.length) {slideIndex = 1}
-        //     if (n < 1) {slideIndex = slides.length}
-        //     for (i = 0; i < slides.length; i++) {
-        //         slides[i].style.display = "none";
-        //     }
-        //     for (i = 0; i < dots.length; i++) {
-        //         dots[i].className = dots[i].className.replace(" active", "");
-        //     }
-        //     slides[slideIndex-1].style.display = "block";
-        //     dots[slideIndex-1].className += " active";
-        // }
-
-        $("#hoistingBtn").on("click", function () {
-            if (confirm("끌어올리겠습니까?")) {
-                let saleNo = "${Sale.no}";
-                $("<input>").attr({
-                    type: "hidden",
-                    name: "no",
-                    value: saleNo
-                }).appendTo("#form");
-                $("#form").attr("action", "/hoisting");
-                $("#form").submit();
-            }
+        $("#saleboard-myshop").on("click", function (){
+            window.location.href = "/sale/manage"
         });
 
-        $("#removeBtn").on("click", function () {
-            if (confirm("삭제 하시겠습니까?")) {
-                $("#form").attr("action", "/sale/remove?no=${Sale.no}");
-                $("#form").submit();
-            }
-        });
-
-        $("#modifyBtn").on("click", function () {
-            if (confirm("수정 하시겠습니까?")) {
-                let saleNo = "${Sale.no}";
-                $("<input>").attr({
-                    type: "hidden",
-                    name: "no",
-                    value: saleNo
-                }).appendTo("#form");
-                $("#form").attr("action", "/sale/modify");
-                $("#form").submit();
-            }
-        });
-
-        $("#returnBtn").on("click", function () {
-            if (confirm("목록으로 돌아가시겠습니까?")) {
-                window.location.href = "<c:url value='/sale/list'/>";
-            }
-        });
 
         $("#sal_s_cd").on("change", function () {
             let selectedValue = $(this).val();

@@ -18,5 +18,4 @@ public interface UserDao {
     public int updateUser(Map map);
     public int updateUserPW(Map map);
     public int updateUser_s_cd(Map map);
-    public boolean emailExist(String email);
 }
