@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import team.cheese.dao.MyPage.JjimDao;
 import team.cheese.domain.*;
+import team.cheese.domain.MyPage.JjimDTO;
 import team.cheese.domain.MyPage.SearchCondition;
 import team.cheese.dao.*;
 import team.cheese.dao.MyPage.UserInfoDao;
+import team.cheese.domain.MyPage.UserInfoDTO;
+import team.cheese.service.ChatService;
 import team.cheese.service.ImgService;
 import team.cheese.service.ImgServiceImpl;
 
@@ -37,6 +41,11 @@ public class SaleService {
 
     @Autowired
     ImgService imgService;
+    @Autowired
+    JjimDao jjimDao;
+
+    @Autowired
+    ChatService chatService;
 
     // 전체 게시글 수 count
     public int getCount() throws Exception {
@@ -50,6 +59,10 @@ public class SaleService {
 
     public SaleDto getSale(Long no) throws Exception {
         return saleDao.select(no);
+    }
+
+    public int userSaleCnt(String ur_id) throws Exception{
+        return saleDao.userSaleCnt(ur_id);
     }
 
     // 판매자가 자신의 게시글을 삭제할 때
@@ -104,11 +117,12 @@ public class SaleService {
         Long sal_no = saleDto.getNo();
 
         List<String> tagList = (List<String>) map.get("tagList");
+        System.out.println(tagList);
         int insertTagTx = insertTagTx(sal_no, ur_id, tagList);
 
         return sal_no;
     }
-
+    
     // tag 데이터를 insert하는 트렌젝션 문
     @Transactional(propagation = Propagation.REQUIRED)
     public int insertTagTx(Long sal_no, String ur_id, List<String> tagList) throws Exception {
@@ -198,7 +212,6 @@ public class SaleService {
 
     public List<SaleDto> getSelectSellerList(Map map) throws Exception {
         List<SaleDto> saleList = saleDao.selectSeller(map);
-        System.out.println(saleList);
 
         return saleList;
     }
@@ -225,7 +238,6 @@ public class SaleService {
         }
 
         String sal_cd = saleDto.getSal_i_cd();
-        System.out.println("sal_cd : " + sal_cd);
 
         Map categoryMap = new HashMap();
 
@@ -233,7 +245,6 @@ public class SaleService {
         if(sal_cd.length() == 9) {
             categoryMap.put("length", sal_cd.length());
             categoryMap.put("sal_cd", sal_cd);
-            System.out.println("sal_cd 3 : " + sal_cd);
 
             sal_name = saleCategoryDao.categoryName(categoryMap);
             map.put("category3Name", sal_name);
@@ -244,7 +255,6 @@ public class SaleService {
         if(sal_cd.length() == 6) {
             categoryMap.put("length", sal_cd.length());
             categoryMap.put("sal_cd", sal_cd);
-            System.out.println("sal_cd 2 : " + sal_cd);
 
             sal_name = saleCategoryDao.categoryName(categoryMap);
             map.put("category2Name", sal_name);
@@ -257,7 +267,6 @@ public class SaleService {
             categoryMap.put("sal_cd", sal_cd);
             sal_name = saleCategoryDao.categoryName(categoryMap);
             map.put("category1Name", sal_name);
-            System.out.println("sal_cd 1 : " + sal_cd);
         }
 
         List<TagDto> tagDto = saleTagRead(no);
@@ -314,6 +323,7 @@ public class SaleService {
         for(TagDto tagDto : tagList) {
             tagContents += "#" + tagDto.getContents();
         }
+
         Map map = new HashMap();
         map.put("saleDto", saleDto);
         map.put("tagContents", tagContents);
@@ -342,18 +352,22 @@ public class SaleService {
         return saleDao.selectSearchCount(sc);
     }
 
+    //이놈이 판매상태
     @Transactional(propagation = Propagation.REQUIRED)
-    public void updateSaleSCd(Long no, String sal_s_cd, String seller_id) throws Exception {
+    public ArrayList<UserInfoDTO> updateSaleSCd(Long no, String sal_s_cd, String seller_id) throws Exception {
         Map map = new HashMap();
         map.put("no", no);
         map.put("sal_s_cd", sal_s_cd);
         map.put("seller_id", seller_id);
 
-        int result = saleDao.updateSaleSCd(map);
+        saleDao.updateSaleSCd(map);
 
         if(sal_s_cd.equals("C")) {
             increamentCompleteCnt(seller_id);
         }
+        ArrayList<UserInfoDTO> list = chatService.loadChatlist(no);
+        return list;
+        //loadChatlist
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -383,18 +397,9 @@ public class SaleService {
         if(saleDao.buySale(saleDto)!=1)
             throw new Exception("구매/예약시 예외발생");
     }
-
-    // 상품관리 페이지에 들어간 경우
-//    public Map manage(String seller_id) throws Exception {
-        // 판매글 번호를 넘겨 받아서 Dao에서 select로 처리
-//        SaleDto saleDto = saleDao.selectSeller();
-//        Map map = new HashMap();
-//        map.put("saleDto", saleDto);
-//
-//        if(saleDto == null) {
-//            return map;
-//        }
-//
-//        return map;
-//    }
+    // 상세 판매글페이지에 찜 버튼 눌렀는지
+    public JjimDTO bringLike(JjimDTO jjimDTO) throws Exception {
+        return jjimDao.findLike(jjimDTO);
+    }
 }
+

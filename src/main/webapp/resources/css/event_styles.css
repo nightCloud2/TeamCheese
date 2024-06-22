@@ -5,7 +5,14 @@
     height: 50px;
     justify-content: space-between;
 }
-
+#titlebox{
+    padding-top: 20px;
+    box-sizing: border-box;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+    height: 100px;
+}
 .search-container{
     align-items: center;
 }
@@ -16,22 +23,18 @@
 }
 
 .bun-ui a{
-    background-color: #c8c8d5;
+    background-color: lightgrey;
     width: calc(1200px/5);
     height: 45px;
 }
 
 .menu>ul{
-    align-items: center;
-    border-top: 1px solid #eaeaee;
-    border-right: 1px solid #eaeaee;
-    border-bottom: 1px solid #c8c8d5;
-    background-color: #fafafc;
-    justify-content: center;
     display:flex;
-
+    background-color: #fafafc;
 }
-li>a {
+.menu>ul>li>a {
+    box-sizing: border-box;
+    padding-top: 10px;
     display: block;
     text-align: center;
     text-decoration: none;
@@ -56,7 +59,9 @@ li>a {
 /*    border-bottom: none;*/
 /*}*/
 .bun-ui-selected a{
-    border-top: 2px solid black;
+    border-top: 1px solid lightgrey;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
     border-bottom: none;
     background-color: white;
     position: relative;

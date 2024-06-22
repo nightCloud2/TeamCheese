@@ -2,6 +2,11 @@
 <%@include file="../fixed/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/event_styles.css">
 <main class="maincontent">
+    <div id = "titlebox">
+        <p class="font30">
+            이벤트
+        </p>
+    </div>
     <div class="topnav">
         <div class="menu">
             <ul>

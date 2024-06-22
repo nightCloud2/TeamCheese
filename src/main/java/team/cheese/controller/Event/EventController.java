@@ -22,7 +22,6 @@ public class EventController {
         String nowcd = cd==null?"P":cd;
         int nowpage = page==null?1:page;
         PageHandler ph = new PageHandler(service.count(nowcd),nowpage);
-        ph.setPageSize(9);
         ArrayList<EventDto> arr = service.getPageList(ph.getOffset(), nowcd, ph.getPageSize());
         model.addAttribute("eventarr", arr);
         model.addAttribute("ph", ph);
@@ -36,6 +35,4 @@ public class EventController {
         model.addAttribute("dto", dto);
         return "/event/read";
     }
-//    @GetMapping(value = "search")
-//    public  String search()
 }
