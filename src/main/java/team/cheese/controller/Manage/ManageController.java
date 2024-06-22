@@ -19,7 +19,7 @@ public class ManageController {
     private ManageService manageService;
 
     @GetMapping("")
-    public String main(Model model) {
+    public String mainPage(Model model) {
         model.addAttribute(manageService.getSoonEndList());
         return "Manage/MainPage";
     }

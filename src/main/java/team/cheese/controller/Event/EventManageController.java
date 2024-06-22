@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/Manage")
-public class ManageController {
+@RequestMapping(value = "/eventmanage")
+public class EventManageController {
     @Autowired
     EventService eventService;
 
