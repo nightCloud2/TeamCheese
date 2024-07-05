@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import team.cheese.dao.Manage.ManageDao;
 import team.cheese.domain.Manage.saleCategorysumdto;
+import team.cheese.domain.QnaDto;
 import team.cheese.domain.event.EventDto;
 
 import java.time.LocalDate;
@@ -42,6 +43,11 @@ public class ManageDaoTest extends AbstractTestNGSpringContextTests {
     public  void Countregisterusertest(){
         System.out.println(manageDao.counttodayregister());
         Assert.assertTrue(manageDao.counttodayregister()!=-1);
+    }
+    @Test
+    public  void selectQnaneedAnswerList(){
+        List<QnaDto> dtolist = manageDao.selectNeedAnswerList(3);
+        Assert.assertTrue(dtolist.size() == 3);
     }
 
     private Date convertToDateViaInstant(LocalDate dateToConvert) {

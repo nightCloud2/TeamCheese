@@ -25,6 +25,7 @@
         <li>FAQ관리</li>
     </ul>
 </header>
+<main>
 <div class="row">
     <div class="column">
         <div class="card primary">
@@ -62,6 +63,7 @@
     </div>
 </div>
 </div>
+</main>
 
 <script src="/js/ManageMain.js"></script>
 </body>
