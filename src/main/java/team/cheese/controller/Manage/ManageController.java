@@ -19,40 +19,45 @@ public class ManageController {
     @Autowired
     private ManageService manageService;
 
+    @GetMapping("/eventManageList")
+    public String eventManageList(Model model){
+        return "/Manage/EventManage";
+    }
     @GetMapping("")
     public String main(Model model) {
         model.addAttribute(manageService.getSoonEndList());
-        return "Manage/MainPage";
+        return "/Manage/MainPage";
     }
 
-    @GetMapping("getAnswerList")
+    @GetMapping("/getAnswerList")
     @ResponseBody
     public List<QnaDto> getAnserList(){
         return manageService.getAnserList();
     }
 
-    @GetMapping("getEventList")
+    @GetMapping("/getEventList")
     @ResponseBody
     public List<EventDto> getEventList(){
         return manageService.getSoonEndList();
     }
 
-    @GetMapping("getCharImfo")
+    @GetMapping("/getCharImfo")
     @ResponseBody
     public List<saleCategorysumdto> getchartImfo(){
         return manageService.getCartImpo();
     }
 
-    @GetMapping("todayRegisterUser")
+    @GetMapping("/todayRegisterUser")
     @ResponseBody
     public int gettodayRegisterUser(){
         return manageService.gettodayRegisterUsercnt();
     }
 
-    @GetMapping("todayQuitUser")
+    @GetMapping("/todayQuitUser")
     @ResponseBody
     public int gettodayQuitUser(){
         return manageService.gettodayQuitUsercnt();
     }
+
 
 }
