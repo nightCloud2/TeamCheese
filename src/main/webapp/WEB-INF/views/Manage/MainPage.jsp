@@ -19,7 +19,7 @@
 <header class="header">
     <ul>
         <li>유저 관리</li>
-        <li><a href="/Manage/eventManageList">이벤트 관리</a></li>
+        <li><a href="/Manage/event">이벤트 관리</a></li>
         <li>통계</li>
         <li>1대 1 문의 관리</li>
         <li>FAQ</li>

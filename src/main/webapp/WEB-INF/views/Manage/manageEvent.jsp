@@ -28,7 +28,7 @@
             <a class="activearr" href='/Manage/event?cd=P'>활성 이벤트</a>
             <a class="finisharr" href='/Manage/event?cd=F'>종료 이벤트</a>
             <a class="cancelarr" href='/Manage/event?cd=C'>취소 이벤트</a>
-            <a href="/Manage/write">작성</a>
+            <a href="/Manage/event/write">작성</a>
             <div id="search">
                 <form id="searchform" name="searchform" method="post">
                     <fieldset>
@@ -56,11 +56,11 @@
         </div>
         </c:forEach>
         <c:if test="${ph.prevPage}">
-        <a href="Manage/event?page=1&cd=${cd}"><<</a>
-        <a href="Manage/event?page=${ph.offset-1}&cd=${cd}"><</a>
+        <a href="/Manage/event?page=1&cd=${cd}"><<</a>
+        <a href="/Manage/event?page=${ph.offset-1}&cd=${cd}"><</a>
         </c:if>
         <c:forEach var="page" begin="${ph.beginPage}" end="${ph.endPage}">
-        <a href="Manage/event?page=${page}&cd=${cd}">${page}</a>
+        <a href="/Manage/event?page=${page}&cd=${cd}">${page}</a>
         </c:forEach>
         <!-- Add more page links here -->
         <c:if test="${ph.nextPage}">

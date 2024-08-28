@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import team.cheese.domain.Manage.saleCategorysumdto;
 import team.cheese.domain.QnaDto;
 import team.cheese.domain.event.EventDto;
+import team.cheese.entity.PageHandler;
 import team.cheese.service.Manage.ManageService;
+import team.cheese.service.event.EventService;
 
 import java.util.List;
 
@@ -19,10 +21,7 @@ public class ManageController {
     @Autowired
     private ManageService manageService;
 
-    @GetMapping("/eventManageList")
-    public String eventManageList(Model model){
-        return "/Manage/EventManage";
-    }
+
     @GetMapping("")
     public String main(Model model) {
         model.addAttribute(manageService.getSoonEndList());
