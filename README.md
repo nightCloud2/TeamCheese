@@ -82,7 +82,7 @@
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white) ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 
 - 아이콘 및 기본폰트 : [Google Font] (https://fonts.google.com/icons?subset=korean&noto.script=Kore)
-- [커밋 컨벤션](https://github.com/wafflu/Team-cheesemate/wiki/Commit-convenction)
+- [커밋 컨벤션](https://github.com/nightCloud2/TeamCheese/wiki/Commit-convenction)
 
 <br>
 
