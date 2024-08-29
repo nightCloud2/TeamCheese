@@ -19,12 +19,13 @@
 <header class="header">
     <ul>
         <li>유저 관리</li>
-        <li>이벤트 관리</li>
+        <li><a href="/Manage/event">이벤트 관리</a></li>
         <li>통계</li>
         <li>1대 1 문의 관리</li>
-        <li>FAQ관리</li>
+        <li>FAQ</li>
     </ul>
 </header>
+<main>
 <div class="row">
     <div class="column">
         <div class="card primary">
@@ -62,6 +63,7 @@
     </div>
 </div>
 </div>
+</main>
 
 <script src="/js/ManageMain.js"></script>
 </body>

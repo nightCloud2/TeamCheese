@@ -52,8 +52,6 @@ public class UserDto {
     @NotNull
     private char s_cd;
 
-    @NotNull
-    @Size(min = 6, max = 50)
     private String addr_det;
 
     private Timestamp first_date;

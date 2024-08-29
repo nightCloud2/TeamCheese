@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import team.cheese.domain.Manage.saleCategorysumdto;
+import team.cheese.domain.QnaDto;
 import team.cheese.domain.event.EventDto;
+import team.cheese.entity.PageHandler;
 import team.cheese.service.Manage.ManageService;
+import team.cheese.service.event.EventService;
 
 import java.util.List;
 
@@ -18,25 +21,42 @@ public class ManageController {
     @Autowired
     private ManageService manageService;
 
+
     @GetMapping("")
     public String mainPage(Model model) {
         model.addAttribute(manageService.getSoonEndList());
-        return "Manage/MainPage";
+        return "/Manage/MainPage";
     }
 
-    @GetMapping("getEventList")
+    @GetMapping("/getAnswerList")
+    @ResponseBody
+    public List<QnaDto> getAnserList(){
+        return manageService.getAnserList();
+    }
+
+    @GetMapping("/getEventList")
     @ResponseBody
     public List<EventDto> getEventList(){
         return manageService.getSoonEndList();
     }
-    @GetMapping("getCharImfo")
+
+    @GetMapping("/getCharImfo")
     @ResponseBody
     public List<saleCategorysumdto> getchartImfo(){
         return manageService.getCartImpo();
     }
-    @GetMapping("todayRegisterUser")
+
+    @GetMapping("/todayRegisterUser")
     @ResponseBody
     public int gettodayRegisterUser(){
         return manageService.gettodayRegisterUsercnt();
     }
+
+    @GetMapping("/todayQuitUser")
+    @ResponseBody
+    public int gettodayQuitUser(){
+        return manageService.gettodayQuitUsercnt();
+    }
+
+
 }

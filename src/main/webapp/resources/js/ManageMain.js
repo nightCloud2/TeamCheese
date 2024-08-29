@@ -14,6 +14,38 @@ $(document).ready(function() {
         error: function(xhr, status, error) {
             console.log("응답 내용:", xhr.responseText);
         }});
+    document.getElementById('today-cancellations').innerText
+    $.ajax({
+        url: '/Manage/todayQuitUser',
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(result) {
+            const today_Quit=document.getElementById('today-cancellations');
+            today_Quit.innerText=result;
+        },
+        error: function(xhr, status, error) {
+            console.log("응답 내용:", xhr.responseText);
+        }});
+    $.ajax({
+        url: '/Manage/getAnswerList',
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(result) {
+            const AnswerList = document.getElementById('inquiry-list');
+            result.forEach(Qna => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.innerText = `${Qna.no} ${Qna.title}`;
+                AnswerList.appendChild(li);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.log("응답 내용:", xhr.responseText);
+        }});
     $.ajax({
         url: '/Manage/getEventList',
         type: 'GET',
@@ -50,30 +82,14 @@ $(document).ready(function() {
         }
     });
 });
-const signupsToday = 10;
+
 const cancellationsToday = 2;
-
-
-const pendingInquiries = [
-    'Inquiry 1: Details...',
-    'Inquiry 2: Details...',
-    'Inquiry 3: Details...'
-];
-
 
 // DOM 요소 업데이트
 
 document.getElementById('today-cancellations').innerText = cancellationsToday;
 
-const inquiryList = document.getElementById('inquiry-list');
-pendingInquiries.forEach(inquiry => {
-    const li = document.createElement('li');
-    li.className = 'list-group-item';
-    li.innerText = inquiry;
-    inquiryList.appendChild(li);
-});
 
-const eventList = document.getElementById('event-list');
 
 var drawChart = function(ChartData) {
     // 차트 생성

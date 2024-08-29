@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import team.cheese.domain.Manage.saleCategorysumdto;
+import team.cheese.domain.QnaDto;
 import team.cheese.domain.event.EventDto;
 
 import java.util.List;
@@ -24,5 +25,11 @@ public class ManageDao {
     }
     public int counttodayregister(){
         return sqlSession.selectOne(namespace+"counttodayRegister");
+    }
+    public List<QnaDto> selectNeedAnswerList(int num){
+        return sqlSession.selectList(namespace+"selectNeedAnswerList",num);
+    }
+    public int counttodayQuit(){
+        return sqlSession.selectOne(namespace+"counttodayQuit");
     }
 }

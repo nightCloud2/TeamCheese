@@ -9,6 +9,10 @@
         where DATE(first_date) = DATE(now());
     </select>
 <!--    오늘 탈퇴한 회원 수-->
+    <select id="counttodayQuit" resultType="int">
+        select count(*) from user
+        where Date(first_date) = Date(now());
+    </select>
 <!--    답변 달아야 하는 1대 1 문의 글 목록 조회-->
     <select id="qnalistnoanswer" resultType="QnaDto">
 
@@ -33,6 +37,12 @@
         ) AS table_2
                       ON table_1.sal_i_cd_prefix = table_2.sal_cd
         order by total_view_cnt desc, sal_i_cd_prefix asc;
+    </select>
+<!--    답글 없는 1대 1 문의글 목록-->
+    <select id="selectNeedAnswerList" parameterType="int" resultType="QnaDto">
+        select * from question_board
+        where q_s_cd = 'Q001U'
+        limit #{num};
     </select>
 
 </mapper>
