@@ -55,7 +55,7 @@
 </head>
 <body>
     <h2>이벤트 글쓰기</h2>
-    <form id="form" action="${requestScope['javax.servlet.forward.servlet_path']=='/Manage/modify'?'/Manage/modify':'/Manage/write'}?evt_no=${dto.evt_no}" method="post">
+    <form id="form" action="${requestScope['javax.servlet.forward.servlet_path']=='/Manage/event/modify'?'/Manage/event/modify':'/Manage/event/write'}?evt_no=${dto.evt_no}" method="post">
         <div class="form-group">
             <label for="title">제목</label>
             <!-- placeholder 속성 입력한 데이터가 없는 경우 배경으로 나타난다.실제적으로 입력을 100자까지로 지정 -->
@@ -105,9 +105,9 @@
                    placeholder="경품(2자-10자)" name="prize" ${readonly} value=${dto.prize}>
         </div>
         <c:choose>
-            <c:when test="${requestScope['javax.servlet.forward.servlet_path']=='/Manage/read'}">
-                <button type="button" class="btn btn-default" onclick="location.href='modify?evt_no=${dto.evt_no}'">수정</button>
-                <button type="button" class="btn btn-default" onclick="location.href='remove?evt_no=${dto.evt_no}'">삭제</button>
+            <c:when test="${requestScope['javax.servlet.forward.servlet_path']=='/Manage/event/read'}">
+                <button type="button" class="btn btn-default" onclick="location.href='/Manage/event/modify?evt_no=${dto.evt_no}'">수정</button>
+                <button type="button" class="btn btn-default" onclick="location.href='/Manage/event/remove?evt_no=${dto.evt_no}'">삭제</button>
             </c:when>
             <c:otherwise>
                 <button id= "submitform" class="btn btn-default">등록</button>
@@ -115,7 +115,7 @@
         </c:choose>
     </form>
 
-    <a href="write" class="btn btn-default">쓰기</a>
+    <a href="/Manage/event/write" class="btn btn-default">쓰기</a>
     <script src="/resources/js/img.js"></script>
     <script>
         document.getElementById("submitform").onclick = function (){

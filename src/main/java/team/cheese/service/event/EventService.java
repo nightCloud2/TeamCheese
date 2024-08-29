@@ -17,7 +17,7 @@ public interface EventService {
 
     List<EventDto> getSearchList(String cd, String contents, int startnum);
 
-    int eventRegister(EventDto dto, String imgname) throws IOException;
+    int eventRegister(EventDto dto) throws IOException;
 
     EventDto getContent(Long evt_no);
 

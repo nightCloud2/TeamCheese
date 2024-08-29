@@ -25,8 +25,8 @@
 
     <!--    *** 유저의 주소코드 추가 ***-->
     <insert id="insertAddrCd" parameterType="AddrCdDto">
-        INSERT INTO addr_cd (ur_id, addr_cd, addr_name, state, first_date, first_id, last_date, last_id)
-        VALUES (#{ur_id}, #{addr_cd}, #{addr_name}, #{state}, #{first_date, jdbcType=TIMESTAMP}, #{first_id}, #{last_date, jdbcType=TIMESTAMP}, #{last_id})
+        INSERT INTO addr_cd (ur_id, addr_cd, addr_name, state, first_id, last_id)
+        VALUES (#{ur_id}, #{addr_cd}, #{addr_name}, #{state}, #{ur_id}, #{ur_id})
     </insert>
 
 

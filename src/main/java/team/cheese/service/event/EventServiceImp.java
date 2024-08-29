@@ -49,7 +49,7 @@ public class EventServiceImp implements EventService {
         return arr;
     }
     @Override
-    public int eventRegister(EventDto dto, String imgname) throws IOException {
+    public int eventRegister(EventDto dto) throws IOException {
         String S_Cd = isWithinRange(dto.getS_date(),dto.getE_date());
         dto.setActive_s_cd(S_Cd);
 

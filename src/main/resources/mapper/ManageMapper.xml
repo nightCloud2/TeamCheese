@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.cheese.ManageMapper">
+<!--    오늘 가입한 회원 수-->
+    <select id="counttodayRegister" resultType="int">
+        select count(*) from user
+        where DATE(first_date) = DATE(now());
+    </select>
+<!--    오늘 탈퇴한 회원 수-->
+    <select id="counttodayQuit" resultType="int">
+        select count(*) from user
+        where Date(first_date) = Date(now());
+    </select>
+<!--    답변 달아야 하는 1대 1 문의 글 목록 조회-->
+    <select id="qnalistnoanswer" resultType="QnaDto">
+
+    </select>
+<!--    곧 종료 되는 이벤트 목록 조회-->
+    <select id="selectSoonEndEvent" resultType="EventDto">
+        select * from event
+        where ADDDATE(e_date,-1) = curdate();
+    </select>
+<!--    sale Chart 만들기-->
+    <select id="countsalecategory" resultType="saleCategorysumdto">
+        SELECT  table_2.name,table_1.total_view_cnt
+        FROM (
+                 SELECT LEFT(sal_i_cd, 3) AS sal_i_cd_prefix, SUM(view_cnt) AS total_view_cnt
+                 FROM sale
+                 GROUP BY LEFT(sal_i_cd, 3)
+             ) AS table_1
+                 JOIN (
+            SELECT sal_cd, name
+            FROM sale_category
+            WHERE LENGTH(sal_cd) = 3
+        ) AS table_2
+                      ON table_1.sal_i_cd_prefix = table_2.sal_cd
+        order by total_view_cnt desc, sal_i_cd_prefix asc;
+    </select>
+<!--    답글 없는 1대 1 문의글 목록-->
+    <select id="selectNeedAnswerList" parameterType="int" resultType="QnaDto">
+        select * from question_board
+        where q_s_cd = 'Q001U'
+        limit #{num};
+    </select>
+
+</mapper>

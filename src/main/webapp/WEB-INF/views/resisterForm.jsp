@@ -93,7 +93,7 @@
             <div class="form-group" style="margin-top: 50px">
                 <div class="form-title">상세주소</div>
                 <div>
-                    <input type="text" class="inputBox" id="addr_det" name="addr_det" value="<c:out value='${userDto.addr_det}' />" pattern="^[가-힣a-zA-Z0-9\s]+$" minlength="6" maxlength="50" title="거주하고 있는 주소를 정확하게 입력해주세요." oninput="validateAddrDet()">
+                    <input type="text" class="inputBox" id="addr_det" name="addr_det" value="<c:out value='${userDto.addr_det}' />" pattern="^[가-힣a-zA-Z0-9\s]+$">
                     <div class="error-message" id="addrDetailErrorMSG"></div>
                 </div>
             </div>
@@ -467,7 +467,8 @@
         }
     });
 
-    let check = true;
+    let
+        check = true;
 
     // *** 아이디 중복 확인(Ajax) ***
     function checkIdDuplication() {
@@ -571,24 +572,6 @@
         }
     }
 
-    function validateAddrDet() {
-        var addr_det = document.getElementById("addr_det").value;
-        var errorMSG = document.getElementById("addrDetailErrorMSG");
-        var pattern = /^.{6,}$/;
-
-        if(addr_det === "") {
-            document.getElementById("addr_det").style.borderColor = "red";
-            errorMSG.textContent = "상세주소를 입력해 주세요";
-        }
-        else if(!pattern.test(addr_det)) {
-            document.getElementById("addr_det").style.borderColor = "red";
-            errorMSG.textContent = "상세주소를 정확히 입력해 주세요";
-        }
-        else {
-            document.getElementById("addr_det").style.borderColor = "";
-            errorMSG.textContent = "";
-        }
-    }
 
     function validateName() {
         var name = document.getElementById("name").value;
@@ -719,13 +702,6 @@
             check = false;
         } else {
             document.getElementById("email").style.borderColor = '';
-        }
-
-        if(inputAddress.trim() === "" || inputAddress.replace(/\s/g, "").length < 6) {
-            document.getElementById("addr_det").style.borderColor = 'red';
-            check = false;
-        } else {
-            document.getElementById("addr_det").style.borderColor = '';
         }
 
         if(inputName === "") {

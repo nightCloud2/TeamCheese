@@ -1,0 +1,44 @@
+.wrapper{
+    justify-content: center;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+.eventTitle {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+}
+.eventContents {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.read_eventimg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+.date, .prize {
+    font-size: 16px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #555;
+}
+h5 {
+    margin: 20px 0 10px;
+    font-size: 20px;
+    color: #000;
+}
